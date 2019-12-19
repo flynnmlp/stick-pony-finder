@@ -4,15 +4,24 @@
 
 fieldset {
 	flex: 1;
+	padding: 0.5em 1em 1em;
+}
+fieldset > div {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	max-height: 540px;
 }
 
+#search {
+	width: 100%;
+	box-sizing: border-box;
+}
+
 #list {
 	overflow: auto;
 	list-style: none;
-	margin-bottom: 1em 0 0;
+	margin: 0.5em -1em -1em;
 	padding: 0;
 }
 #list .unknown {
@@ -21,6 +30,9 @@ fieldset {
 #list label {
 	display: flex;
 	align-items: center;
+}
+#list input {
+	margin: 1em;
 }
 #list img {
 	padding: 0.5em;
