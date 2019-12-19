@@ -3,6 +3,11 @@
 const $ = document.querySelector.bind(document);
 var video;
 var selection = null;
+var packMap = {};
+packs.forEach(function(pack) {
+	packMap[pack.name] = pack;
+});
+var loader = null;
 
 function onYouTubeIframeAPIReady() {
 	video = new YT.Player('video', {
@@ -30,68 +35,89 @@ function doSearch() {
 	
 	var results = [];
 	
+	if(loader)
+		loader.destroy();
+	
 	var list = $("#list");
 	list.innerHTML = "";
 	
-	ponies.forEach(function(pack) {
-		pack.names.forEach(function(name, i) {
-			if(name.toLowerCase().indexOf(text) === -1) return;
-			
-			var li = list.appendChild(document.createElement("li"));
-			var label = li.appendChild(document.createElement("label"));
-			var radio = label.appendChild(document.createElement("input"));
-			radio.type = "radio";
-			radio.name = "pony";
-			radio.addEventListener("change", function() {
-				if(radio.checked) {
-					video.pauseVideo();
-					video.seekTo(pack.t1, true);
-					selection = {"pack": pack, "index": i, };
-				}
-			}, false);
-			
-			label.appendChild(document.createTextNode(" " + name));
-		});
-	});
+	loader = lazyload(ponies.filter(function(pony){
+		return pony["pony name"].toLowerCase().indexOf(text) !== -1 || pony["creator name"].toLowerCase().indexOf(text) !== -1;
+	}).map(function(pony) {
+		var li = list.appendChild(document.createElement("li"));
+		if(!packMap[pony.pack])
+			li.classList.add("unknown");
+		
+		var label = li.appendChild(document.createElement("label"));
+		var radio = label.appendChild(document.createElement("input"));
+		radio.type = "radio";
+		radio.name = "pony";
+		radio.checked = selection == pony;
+		radio.addEventListener("change", function() {
+			if(radio.checked) {
+				selectPony(pony);
+			}
+		}, false);
+		
+		var img = label.appendChild(document.createElement("img"));
+		img.classList.add("lazyload");
+		img.dataset.src = pony.img;
+		
+		var div = label.appendChild(document.createElement("div"));
+		div.appendChild(document.createTextNode(" " + pony["pony name"]));
+		if(pony["creator name"])
+			div.appendChild(document.createElement("small")).appendChild(document.createTextNode(" by " + pony["creator name"]));
+		
+		return img;
+	}));
+}
+
+function selectPony(pony) {
+	var pack = packMap[pony.pack];
+	if(!pack) return;
+	
+	var movement = getMovement(pack, pony);
+	var t = video.getCurrentTime();
+	
+	if(t < movement.t_in || t > movement.t_out) {
+		video.pauseVideo();
+		setTimeout(function() {
+			video.seekTo((movement.t_in + movement.t_out) / 2, true);
+		}, 100);
+	}
+	
+	selection = pony;
+	updatePreview();
 }
 
 function updatePreview() {
 	var preview = $("#preview");
 	
-	if(!selection) {
+	var pony = selection;
+	
+	if(!pony) {
 		preview.style.display = "none";
 		return;
 	}
 	
-	var pack = selection.pack;
-	var index = selection.index;
+	var pack = packMap[pony.pack];
+	if(!pack) return;
 	
 	var t = video.getCurrentTime();
+	var movement = getMovement(pack, pony);
 	
-	if(pack.type === "row") {
-		var ds = index / pack.names.length - 1;
-		
-		var dt = pack.t2 - pack.t1;
-		// movement speed
-		var vx = (pack.x2 - pack.x1) / dt;
-		var vy = (pack.y2 - pack.y1) / dt;
-		// length of the line
-		var lx = pack.x2 - pack.x3 + vx * (pack.t2 - pack.t3);
-		var ly = pack.y2 - pack.y3 + vy * (pack.t2 - pack.t3);
-		
-		var x = pack.x1 + vx * (t - pack.t1) + lx * ds;
-		var y = pack.y1 + vy * (t - pack.t1) + ly * ds;
-		
-		preview.style.display = "";
-		preview.style.left = (x*100)+"%";
-		preview.style.top  = (y*100)+"%";
-		
-		var size = Math.abs(lx) * 100;
-		preview.style.width = size+"px";
-		preview.style.height = size+"px";
-		preview.style.transform = `translate(${-size/2}px, ${-size/2}px)`;
-	} else {
-		console.error("Unknown pony pack type");
+	if(t > movement.t_out || t < movement.t_in) {
+		preview.style.display = "none";
+		return;
 	}
+	
+	preview.style.left = (movement.getX(t)*100)+"%";
+	preview.style.top  = (movement.getY(t)*100)+"%";
+	
+	var size = Math.abs(movement.lx) * 100;
+	preview.style.width = size+"px";
+	preview.style.height = size+"px";
+	preview.style.transform = `translate(${-size/2}px, ${-size/2}px)`;
+	preview.style.display = "";
 }
 

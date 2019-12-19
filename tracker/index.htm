@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<meta charset="UTF-8"> 
+	<title>Stick Pony Tracker</title>
+	<link rel="stylesheet" media="screen" type="text/css" href="style.css" />
+	
+	<script type="text/javascript" src="../data.js"></script>
+	<script type="text/javascript" src="../common.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+	<div id="top">
+		<div id="mask">
+			<label>
+				Select pack:
+				<select id="packs" size="1"></select>
+			</label>
+			<div id="message"></div>
+			<textarea id="output" readonly></textarea><br>
+			<p>
+				Please use frame-skipping to get to the closest video frame. Keys are for default English QUERTY layout and may change depending on your keyboard settings.<br>
+				&lt; frame backwards<br>
+				&gt; frame forwards
+			</p>
+		</div>
+		<div id="player">
+			<div id="video"></div>
+			<div id="overlay"></div>
+			<div id="offset">
+				<div id="preview" style="display:none"></div>
+			</div>
+		</div>
+	</div>
+	<div id="pack"></div>
+</body>
+</html>
+

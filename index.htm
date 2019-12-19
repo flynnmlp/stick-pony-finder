@@ -2,16 +2,11 @@
 <html>
 	<meta charset="UTF-8"> 
 	<title>Stick Pony Finder</title>
-	<!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">-->
-	<!--<link rel="stylesheet" media="screen" type="text/css" href="colorpicker/css/colorpicker.css" />-->
-	<!--<link rel="stylesheet" media="screen" type="text/css" href="jquery-gradient-picker/plugin/jquery.gradientPicker.css" />-->
 	<link rel="stylesheet" media="screen" type="text/css" href="style.css" />
 	
-	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
-	<!--<script type="text/javascript" src="colorpicker/js/colorpicker.js"></script>-->
-	<!--<script type="text/javascript" src="jquery-gradient-picker/plugin/jquery.gradientPicker.js"></script>-->
+	<script type="text/javascript" src="lazyload.js"></script>
 	<script type="text/javascript" src="data.js"></script>
+	<script type="text/javascript" src="common.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 	<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 </head>
@@ -20,6 +15,7 @@
 		<fieldset>
 			<legend>Search:</legend>
 			<input id="search" type="search" placeholder="Your OC's name">
+			<div>Note: ponies that aren't tracked are grayed out.</div>
 			<ul id="list"></ul>
 		</fieldset>
 		<div id="player">

@@ -11,6 +11,24 @@ fieldset {
 
 #list {
 	overflow: auto;
+	list-style: none;
+	margin-bottom: 1em 0 0;
+	padding: 0;
+}
+#list .unknown {
+	opacity: 0.2;
+}
+#list label {
+	display: flex;
+	align-items: center;
+}
+#list img {
+	padding: 0.5em;
+	max-width: 100px;
+	max-height: 100px;
+}
+#list small {
+	display: block;
 }
 
 #player {
