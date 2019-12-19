@@ -2,6 +2,7 @@
 <html>
 	<meta charset="UTF-8"> 
 	<title>Stick Pony Finder</title>
+	<meta name="viewport" content="width=512" />
 	<link rel="stylesheet" media="screen" type="text/css" href="style.css" />
 	
 	<script type="text/javascript" src="lazyload.js"></script>
@@ -11,20 +12,18 @@
 	<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-	<div id="top">
-		<fieldset>
-			<legend>Search:</legend>
-			<div>
-				<input id="search" type="search" placeholder="Your OC's name" autofocus>
-				<div>Note: ponies that aren't tracked are grayed out.</div>
-				<ul id="list"></ul>
-			</div>
-		</fieldset>
-		<div id="player">
-			<div id="video"></div>
-			<div id="offset">
-				<div id="preview" style="display:none"></div>
-			</div>
+	<fieldset>
+		<legend>Search your pony OC:</legend>
+		<div>
+			<input id="search" type="search" placeholder="Your OC's name" autofocus>
+			<div>Note: ponies that aren't tracked are grayed out.</div>
+			<ul id="list"></ul>
+		</div>
+	</fieldset>
+	<div id="player">
+		<div id="video"></div>
+		<div id="offset">
+			<div id="preview" style="display:none"></div>
 		</div>
 	</div>
 </body>

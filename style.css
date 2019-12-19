@@ -1,16 +1,24 @@
-#top {
+html, body {
+	overflow: hidden;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
 	display: flex;
 }
 
 fieldset {
-	flex: 1;
+	flex: 1 1 0;
 	padding: 0.5em 1em 1em;
+	height: 100%;
+	box-sizing: border-box;
 }
 fieldset > div {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	max-height: 540px;
 }
 
 #search {
@@ -45,10 +53,13 @@ fieldset > div {
 
 #player {
 	position: relative;
+	flex: 1 1 0;
 }
 
 #video {
 	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 #offset {
@@ -70,5 +81,20 @@ fieldset > div {
 	left: 0;
 	top: 0;
 	transition: x linear 200ms, y linear 200ms;
+}
+
+@media (max-aspect-ratio: 18/16) {
+	body {
+		flex-direction: column-reverse;
+	}
+	fieldset {
+		height: auto;
+		overflow: hidden;
+		flex: 1 1 0;
+	}
+	#player {
+		flex: 0 0 56.25vw;
+		max-height: 50%;
+	}
 }
 
