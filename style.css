@@ -38,14 +38,24 @@ fieldset > div {
 #list label {
 	display: flex;
 	align-items: center;
+	height: 75px;
+	padding: 0.5em 0;
+}
+#list label.selected {
+	background-color: #CCCCFF;
 }
 #list input {
 	margin: 1em;
 }
+#list span {
+	display: flex;
+	flex: 0 0 100px;
+	justify-content: center;
+	padding-right: 1em;
+}
 #list img {
-	padding: 0.5em;
 	max-width: 100px;
-	max-height: 100px;
+	max-height: 75px;
 }
 #list small {
 	display: block;

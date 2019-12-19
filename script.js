@@ -49,6 +49,9 @@ function doSearch() {
 			li.classList.add("unknown");
 		
 		var label = li.appendChild(document.createElement("label"));
+		if(selection == pony)
+				label.classList.add("selected");
+		
 		var radio = label.appendChild(document.createElement("input"));
 		radio.type = "radio";
 		radio.name = "pony";
@@ -56,10 +59,15 @@ function doSearch() {
 		radio.addEventListener("change", function() {
 			if(radio.checked) {
 				selectPony(pony);
+				Array.from(document.querySelectorAll("#list label.selected")).forEach(function(label) {
+					label.classList.remove("selected");
+				});
+				label.classList.add("selected");
 			}
 		}, false);
 		
-		var img = label.appendChild(document.createElement("img"));
+		var span = label.appendChild(document.createElement("span"));
+		var img = span.appendChild(document.createElement("img"));
 		img.classList.add("lazyload");
 		img.dataset.src = pony.img;
 		
