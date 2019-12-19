@@ -114,7 +114,7 @@ function updatePreview() {
 	preview.style.left = (movement.getX(t)*100)+"%";
 	preview.style.top  = (movement.getY(t)*100)+"%";
 	
-	var size = Math.abs(movement.lx) * 100;
+	var size = Math.abs(movement.lx) * 125;
 	preview.style.width = size+"px";
 	preview.style.height = size+"px";
 	preview.style.transform = `translate(${-size/2}px, ${-size/2}px)`;
